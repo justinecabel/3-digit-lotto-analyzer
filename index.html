@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SWERTRES Predict</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+      :root, html.theme-dark { /* Default to Dark Theme */
+        /* Material Design 3 Dark Theme Inspired Color Palette */
+        --md-sys-color-primary: #a0c9ff; /* Light Blue */
+        --md-sys-color-on-primary: #003062; /* Dark Blue */
+        --md-sys-color-primary-container: #00478a;
+        --md-sys-color-on-primary-container: #d2e4ff;
+
+        --md-sys-color-secondary: #c0c6dd; /* Light Indigo/Grey */
+        --md-sys-color-on-secondary: #2b3042; /* Dark Indigo/Grey */
+        --md-sys-color-secondary-container: #414659;
+        --md-sys-color-on-secondary-container: #dce2f9;
+
+        --md-sys-color-tertiary: #e1bace; /* Light Pink/Purple */
+        --md-sys-color-on-tertiary: #462638; /* Dark Pink/Purple */
+        --md-sys-color-tertiary-container: #5f3c50;
+        --md-sys-color-on-tertiary-container: #ffd8e9;
+
+        --md-sys-color-error: #ffb4ab; /* Light Red */
+        --md-sys-color-on-error: #690005; /* Dark Red */
+        --md-sys-color-error-container: #93000a;
+        --md-sys-color-on-error-container: #ffdad6;
+
+        --md-sys-color-background: #1a1c1e; /* Very Dark Blue/Grey */
+        --md-sys-color-on-background: #e2e2e6; /* Light Grey */
+
+        --md-sys-color-surface: #1c1e21; /* Slightly lighter than background */
+        --md-sys-color-on-surface: #e3e2e6; /* Light Grey */
+        --md-sys-color-surface-variant: #42474e; /* Medium Grey */
+        --md-sys-color-on-surface-variant: #c3c6cf; /* Light Medium Grey */
+        
+        --md-sys-color-surface-container-highest: #333538; /* Elevation for prominent elements */
+
+        --md-sys-color-outline: #8d9199; /* Grey for outlines */
+        --md-sys-color-outline-variant: #42474e;
+
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-inverse-surface: #e3e2e6;
+        --md-sys-color-inverse-on-surface: #2e3033;
+        --md-sys-color-inverse-primary: #005cb3;
+
+        /* Shape */
+        --md-sys-shape-corner-extra-small: 4px;
+        --md-sys-shape-corner-small: 8px;
+        --md-sys-shape-corner-medium: 12px;
+        --md-sys-shape-corner-large: 16px;
+        --md-sys-shape-corner-extra-large: 28px;
+        --md-sys-shape-corner-full: 9999px;
+
+        /* Typography */
+        --md-sys-font-family-plain: 'Inter', sans-serif;
+        
+        /* Elevations */
+        --md-sys-elevation-0: none;
+        --md-sys-elevation-1: 0px 1px 3px 1px rgba(0,0,0,0.15), 0px 1px 2px 0px rgba(0,0,0,0.3);
+        --md-sys-elevation-2: 0px 2px 6px 2px rgba(0,0,0,0.15), 0px 1px 2px 0px rgba(0,0,0,0.3);
+        --md-sys-elevation-3: 0px 1px 3px 0px rgba(0,0,0,0.3), 0px 4px 8px 3px rgba(0,0,0,0.15);
+      }
+
+      html.theme-light {
+        --md-sys-color-primary: #005cb3; /* Darker Blue */
+        --md-sys-color-on-primary: #ffffff; /* White */
+        --md-sys-color-primary-container: #d2e4ff;
+        --md-sys-color-on-primary-container: #001c3c;
+
+        --md-sys-color-secondary: #555e71; /* Darker Indigo/Grey */
+        --md-sys-color-on-secondary: #ffffff; /* White */
+        --md-sys-color-secondary-container: #dce2f9;
+        --md-sys-color-on-secondary-container: #121b2c;
+
+        --md-sys-color-tertiary: #6d5463; /* Darker Pink/Purple */
+        --md-sys-color-on-tertiary: #ffffff; /* White */
+        --md-sys-color-tertiary-container: #ffd8e9;
+        --md-sys-color-on-tertiary-container: #271220;
+
+        --md-sys-color-error: #ba1a1a; /* Dark Red */
+        --md-sys-color-on-error: #ffffff; /* White */
+        --md-sys-color-error-container: #ffdad6;
+        --md-sys-color-on-error-container: #410002;
+
+        --md-sys-color-background: #fdfcff; /* Almost White */
+        --md-sys-color-on-background: #1a1c1e; /* Dark Grey */
+
+        --md-sys-color-surface: #f8f9fa; /* White or very light grey for cards */
+        --md-sys-color-on-surface: #1a1c1e; /* Dark Grey */
+        --md-sys-color-surface-variant: #e0e2ec; /* Light Grey */
+        --md-sys-color-on-surface-variant: #42474e; /* Medium Grey */
+        
+        --md-sys-color-surface-container-highest: #e6e8eb;
+
+        --md-sys-color-outline: #73777f; /* Medium Grey for outlines */
+        --md-sys-color-outline-variant: #c3c6cf;
+
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-inverse-surface: #2e3033;
+        --md-sys-color-inverse-on-surface: #f1f0f4;
+        --md-sys-color-inverse-primary: #a0c9ff;
+      }
+
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: var(--md-sys-font-family-plain);
+        background-color: var(--md-sys-color-background);
+        color: var(--md-sys-color-on-background);
+        margin: 0;
+        line-height: 1.5;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Custom scrollbar for webkit browsers */
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      html.theme-dark ::-webkit-scrollbar-track {
+        background: var(--md-sys-color-surface-variant);
+        border-radius: var(--md-sys-shape-corner-small);
+      }
+      html.theme-dark ::-webkit-scrollbar-thumb {
+        background: var(--md-sys-color-primary);
+        border-radius: var(--md-sys-shape-corner-small);
+        border: 2px solid var(--md-sys-color-surface-variant);
+      }
+      html.theme-dark ::-webkit-scrollbar-thumb:hover {
+        background: var(--md-sys-color-primary-container);
+      }
+
+      html.theme-light ::-webkit-scrollbar-track {
+        background: var(--md-sys-color-surface-variant); /* Light theme surface variant */
+        border-radius: var(--md-sys-shape-corner-small);
+      }
+      html.theme-light ::-webkit-scrollbar-thumb {
+        background: var(--md-sys-color-primary); /* Light theme primary */
+        border-radius: var(--md-sys-shape-corner-small);
+        border: 2px solid var(--md-sys-color-surface-variant); /* Light theme surface variant */
+      }
+      html.theme-light ::-webkit-scrollbar-thumb:hover {
+        background: var(--md-sys-color-primary-container); /* Light theme primary container */
+      }
+      
+      /* Typography Styles */
+      .md-typography-display-medium {
+        font-size: 2.8125rem; /* 45px */
+        font-weight: 700; 
+        line-height: 3.25rem;
+        letter-spacing: 0px;
+      }
+      .md-typography-headline-large {
+        font-size: 2rem; /* 32px */
+        font-weight: 700; 
+        line-height: 2.5rem;
+        letter-spacing: 0px;
+      }
+      .md-typography-headline-medium {
+        font-size: 1.75rem; /* 28px */
+        font-weight: 700; 
+        line-height: 2.25rem;
+        letter-spacing: 0px;
+      }
+      .md-typography-title-large {
+        font-size: 1.375rem; /* 22px */
+        font-weight: 600; 
+        line-height: 1.75rem;
+        letter-spacing: 0px;
+      }
+      .md-typography-title-medium {
+        font-size: 1rem; /* 16px */
+        font-weight: 600; 
+        line-height: 1.5rem;
+        letter-spacing: 0.15px;
+      }
+      .md-typography-body-large {
+        font-size: 1rem; /* 16px */
+        font-weight: 400;
+        line-height: 1.5rem;
+        letter-spacing: 0.5px;
+      }
+      .md-typography-body-medium {
+        font-size: 0.875rem; /* 14px */
+        font-weight: 400;
+        line-height: 1.25rem;
+        letter-spacing: 0.25px;
+      }
+      .md-typography-label-large {
+        font-size: 0.875rem; /* 14px */
+        font-weight: 500;
+        line-height: 1.25rem;
+        letter-spacing: 0.1px;
+      }
+      .md-typography-label-medium {
+        font-size: 0.75rem; /* 12px */
+        font-weight: 500;
+        line-height: 1rem;
+        letter-spacing: 0.5px;
+      }
+      .md-typography-label-small {
+        font-size: 0.6875rem; /* 11px */
+        font-weight: 500;
+        line-height: 1rem;
+        letter-spacing: 0.5px;
+      }
+
+      /* MD3 Card Style */
+      .md-card {
+        background-color: var(--md-sys-color-surface);
+        border-radius: var(--md-sys-shape-corner-large); 
+        padding: 1.5rem; 
+        box-shadow: var(--md-sys-elevation-1);
+        transition: box-shadow 0.2s ease-out, background-color 0.3s ease;
+        margin-bottom: 1.5rem; 
+      }
+      .md-card--elevated {
+         box-shadow: var(--md-sys-elevation-2);
+         background-color: var(--md-sys-color-surface-container-highest);
+      }
+      .md-card--outlined {
+        border: 1px solid var(--md-sys-color-outline-variant);
+        box-shadow: var(--md-sys-elevation-0);
+      }
+      
+      @media (max-width: 600px) {
+        .md-card {
+          padding: 1rem; 
+        }
+      }
+
+      /* MD3 Button Base */
+      .md-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--md-sys-font-family-plain);
+        font-weight: 500;
+        font-size: 0.875rem; 
+        line-height: 1.25rem;
+        letter-spacing: 0.1px;
+        padding: 0.625rem 1.5rem; 
+        border-radius: var(--md-sys-shape-corner-full); 
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.1s ease-out, color 0.2s ease-out;
+        position: relative;
+        overflow: hidden; 
+        -webkit-tap-highlight-color: transparent;
+      }
+      .md-button:disabled {
+        opacity: 0.38; 
+        cursor: not-allowed;
+        box-shadow: none !important; 
+        background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent 88%) !important;
+        color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent 62%) !important;
+        border-color: transparent !important;
+      }
+      .md-button:not(:disabled):hover {
+        box-shadow: var(--md-sys-elevation-1);
+      }
+      .md-button:not(:disabled):active {
+        transform: scale(0.98);
+        box-shadow: var(--md-sys-elevation-0);
+      }
+      
+      /* Filled Button */
+      .md-button--filled {
+        background-color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+      }
+      .md-button--filled:not(:disabled):hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-primary) 90%, var(--md-sys-color-on-primary) 10%);
+      }
+      
+      /* Tonal Button */
+      .md-button--tonal {
+        background-color: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+      }
+      .md-button--tonal:not(:disabled):hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-secondary-container) 90%, var(--md-sys-color-on-secondary-container) 10%);
+      }
+
+      /* Outlined Button */
+      .md-button--outlined {
+        background-color: transparent;
+        color: var(--md-sys-color-primary);
+        border: 1px solid var(--md-sys-color-outline);
+      }
+      .md-button--outlined:not(:disabled):hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent 92%);
+      }
+      .md-button--outlined:not(:disabled):focus {
+        border-color: var(--md-sys-color-primary);
+      }
+
+      /* Text Button */
+       .md-button--text {
+        background-color: transparent;
+        color: var(--md-sys-color-primary);
+        padding: 0.625rem 0.75rem; 
+      }
+      .md-button--text:not(:disabled):hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent 92%);
+        box-shadow: none;
+      }
+      .md-button--text:not(:disabled):active {
+        transform: none;
+      }
+      .md-button--text:disabled {
+        background-color: transparent !important;
+        color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent 62%) !important;
+      }
+
+      /* Icon Button */
+      .md-icon-button {
+        padding: 0.5rem; 
+        border-radius: var(--md-sys-shape-corner-full);
+        width: 2.5rem; 
+        height: 2.5rem; 
+        background-color: transparent;
+        color: var(--md-sys-color-on-surface-variant); /* Default icon color */
+      }
+      .md-icon-button:not(:disabled):hover {
+         background-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 12%, transparent 88%);
+      }
+      .md-icon-button .material-symbols-outlined {
+        font-size: 1.5rem; 
+        display: inline-block; /* Prevents descender issues */
+        vertical-align: middle;
+      }
+
+
+      /* MD3 Text Field (Outlined) */
+      .md-text-field-wrapper {
+        position: relative;
+        margin-bottom: 1rem; 
+      }
+      .md-text-field {
+        font-family: var(--md-sys-font-family-plain);
+        font-size: 1rem; 
+        color: var(--md-sys-color-on-surface);
+        background-color: transparent; /* Important for theme changes */
+        padding: 1rem; 
+        border-radius: var(--md-sys-shape-corner-small); 
+        border: 1px solid var(--md-sys-color-outline);
+        width: 100%;
+        transition: border-color 0.2s ease-out, background-color 0.3s ease;
+        outline: none;
+      }
+      .md-text-field:focus {
+        border-color: var(--md-sys-color-primary);
+        border-width: 2px;
+        padding: calc(1rem - 1px); 
+      }
+      .md-text-field::placeholder {
+        color: var(--md-sys-color-on-surface-variant);
+        opacity: 0.7;
+      }
+      .md-text-field-label {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 1rem; 
+        color: var(--md-sys-color-on-surface-variant);
+        pointer-events: none;
+        transition: top 0.2s ease-out, font-size 0.2s ease-out, color 0.2s ease-out, background-color 0.3s ease;
+        padding: 0 0.25rem;
+        background-color: var(--md-sys-color-surface); 
+      }
+       .md-text-field:focus + .md-text-field-label,
+       .md-text-field:not(:placeholder-shown) + .md-text-field-label {
+        top: -0.625rem; 
+        font-size: 0.75rem; 
+        color: var(--md-sys-color-primary);
+      }
+      .md-text-field:disabled, .md-text-field[readonly] {
+        opacity: 0.38;
+        border-color: var(--md-sys-color-outline-variant);
+         background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 4%, transparent 96%);
+      }
+      .md-text-field:disabled + .md-text-field-label,
+      .md-text-field[readonly] + .md-text-field-label {
+        color: var(--md-sys-color-on-surface-variant);
+        opacity: 0.38;
+      }
+
+      /* Custom File Input to look like MD text field */
+      .md-file-input-wrapper {
+        position: relative;
+        display: inline-block; 
+        width: 100%; 
+      }
+      .md-file-input { 
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 1;
+      }
+      .md-file-input-facade { 
+        display: flex;
+        align-items: center;
+        justify-content: space-between; 
+        padding: 1rem;
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: var(--md-sys-shape-corner-small);
+        background-color: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface-variant);
+        transition: border-color 0.2s ease-out, background-color 0.3s ease, color 0.3s ease;
+        cursor: pointer;
+      }
+      .md-file-input-facade span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 0.5rem;
+      }
+      .md-file-input:focus + .md-file-input-facade,
+      .md-file-input-wrapper:has(.md-file-input:focus-visible) .md-file-input-facade { 
+        border-color: var(--md-sys-color-primary);
+        border-width: 2px;
+        padding: calc(1rem - 1px);
+      }
+      .md-file-input-facade-icon {
+        color: var(--md-sys-color-primary);
+        flex-shrink: 0;
+        font-size: 24px; /* Match original SVG size */
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+
+      /* MD3 Select (Simplified) */
+      .md-select {
+        font-family: var(--md-sys-font-family-plain);
+        font-size: 1rem; 
+        color: var(--md-sys-color-on-surface-variant); /* Arrow color via CSS */
+        background-color: var(--md-sys-color-surface); /* Theme background */
+        padding: 1rem; 
+        border-radius: var(--md-sys-shape-corner-small);
+        border: 1px solid var(--md-sys-color-outline);
+        width: 100%;
+        appearance: none; 
+        /* SVG uses fill='currentColor'. Color is set by .md-select's color property. */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1.5em;
+        transition: border-color 0.2s ease-out, background-color 0.3s ease, color 0.3s ease;
+        outline: none;
+        cursor: pointer;
+      }
+       .md-select option { /* Style options for better theme consistency */
+        background-color: var(--md-sys-color-surface-container-highest);
+        color: var(--md-sys-color-on-surface);
+      }
+      .md-select:focus {
+        border-color: var(--md-sys-color-primary);
+        border-width: 2px;
+        padding: calc(1rem - 1px); 
+        color: var(--md-sys-color-primary); /* Arrow color on focus */
+      }
+      .md-select-wrapper {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+       .md-select-label { 
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 1rem; 
+        color: var(--md-sys-color-on-surface-variant);
+        pointer-events: none;
+        transition: top 0.2s ease-out, font-size 0.2s ease-out, color 0.2s ease-out, background-color 0.3s ease;
+        padding: 0 0.25rem;
+        background-color: var(--md-sys-color-surface); 
+      }
+      .md-select-value { /* To show actual selected value with correct text color */
+        color: var(--md-sys-color-on-surface) !important;
+      }
+      .md-select:focus + .md-select-label,
+      .md-select-wrapper:has(.md-select:required:not(:placeholder-shown)) .md-select-label,
+      .md-select-wrapper:has(.md-select:valid:not([value=''])) .md-select-label { 
+        top: -0.625rem;
+        font-size: 0.75rem; 
+        color: var(--md-sys-color-primary);
+      }
+
+      /* Error Text */
+      .md-error-text {
+        color: var(--md-sys-color-error);
+        font-size: 0.75rem; 
+        padding-top: 0.25rem;
+        display: block;
+      }
+      .whitespace-pre-line {
+        white-space: pre-line;
+      }
+
+
+      /* Table Styling */
+      .md-table-wrapper {
+        overflow-x: auto;
+        border: 1px solid var(--md-sys-color-outline-variant);
+        border-radius: var(--md-sys-shape-corner-medium);
+        transition: border-color 0.3s ease;
+      }
+      .md-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--md-sys-color-surface);
+        transition: background-color 0.3s ease;
+      }
+      .md-table th, .md-table td {
+        padding: 0.75rem 1rem; 
+        text-align: left;
+        border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        transition: border-color 0.3s ease, color 0.3s ease;
+      }
+      .md-table thead th {
+        background-color: var(--md-sys-color-surface-variant);
+        color: var(--md-sys-color-on-surface-variant);
+        font-size: 0.75rem; 
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .md-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      .md-table tbody tr:hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-surface) 92%);
+      }
+      .md-table td {
+        color: var(--md-sys-color-on-surface);
+      }
+      .md-table td.text-center { text-align: center; }
+      .md-table td.font-medium { font-weight: 500; }
+
+      /* Prediction Number "Chip" */
+      .md-prediction-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        background-color: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+        border-radius: var(--md-sys-shape-corner-small);
+        font-size: 1.125rem; 
+        font-weight: 600;
+        box-shadow: var(--md-sys-elevation-1);
+        min-width: 2.5rem; 
+        text-align: center;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .md-prediction-separator {
+        color: var(--md-sys-color-on-surface-variant);
+        font-weight: bold;
+        margin: 0 0.25rem;
+        transition: color 0.3s ease;
+      }
+
+      /* Disclaimer Box */
+      .md-disclaimer-box {
+        background-color: var(--md-sys-color-error-container);
+        color: var(--md-sys-color-on-error-container);
+        padding: 1rem;
+        border-radius: var(--md-sys-shape-corner-medium);
+        margin-top: 1.5rem;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .md-disclaimer-box strong {
+        color: var(--md-sys-color-error); 
+      }
+
+      /* Loading Spinner (CSS only) */
+      .md-spinner-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .md-spinner {
+        width: 1.5rem; 
+        height: 1.5rem; 
+        border: 3px solid var(--md-sys-color-primary-container);
+        border-top-color: var(--md-sys-color-primary);
+        border-radius: 50%;
+        animation: md-spinner-spin 0.8s linear infinite;
+        margin-right: 0.75rem; 
+        transition: border-color 0.3s ease;
+      }
+      @keyframes md-spinner-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      
+      /* Utility Classes */
+      .mb-1 { margin-bottom: 0.25rem; }
+      .mb-2 { margin-bottom: 0.5rem; }
+      .mb-3 { margin-bottom: 0.75rem; }
+      .mb-4 { margin-bottom: 1rem; }
+      .mb-6 { margin-bottom: 1.5rem; }
+      .mt-1 { margin-top: 0.25rem; }
+      .mt-2 { margin-top: 0.5rem; }
+      .mt-4 { margin-top: 1rem; }
+      .mt-6 { margin-top: 1.5rem; }
+      .mt-10 { margin-top: 2.5rem; }
+      .mt-12 { margin-top: 3rem; }
+      .p-4 { padding: 1rem; }
+      .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+      .text-center { text-align: center; }
+      .font-bold { font-weight: 700; }
+      .font-semibold { font-weight: 600; }
+      .text-sm { font-size: 0.875rem; }
+      .text-xs { font-size: 0.75rem; }
+      .italic { font-style: italic; }
+      
+      .flex { display: flex; }
+      .flex-wrap { flex-wrap: wrap; }
+      .items-center { align-items: center; }
+      .justify-center { justify-content: center; }
+      .justify-between { justify-content: space-between; }
+      .space-x-2 > :not([hidden]) ~ :not([hidden]) { margin-left: 0.5rem; }
+      .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+      .space-y-8 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
+      .gap-3 { gap: 0.75rem; }
+      .flex-grow { flex-grow: 1; }
+      .w-full { width: 100%; }
+      .max-w-xs { max-width: 20rem; }
+      .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .max-h-60 { max-height: 15rem; } 
+      .overflow-y-auto { overflow-y: auto; }
+      
+      /* Container Styling */
+      .container {
+        width: 100%;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      @media (min-width: 640px) { /* sm */
+        .container { max-width: 640px; }
+      }
+      @media (min-width: 768px) { /* md */
+        .container { max-width: 768px; }
+      }
+      @media (min-width: 992px) { /* lg */
+        .container { max-width: 960px; } 
+      }
+      @media (min-width: 1200px) { /* xl */
+        .container { max-width: 1140px; }
+      }
+
+
+      .app-padding {
+        padding: 1rem;
+      }
+      @media (min-width: 640px) { /* sm */
+        .app-padding {
+          padding: 2rem;
+        }
+      }
+
+      .app-header h1 {
+        background: linear-gradient(to right, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        padding-bottom: 0.5rem; 
+      }
+      .app-header .app-subtitle { /* Renamed to avoid conflict */
+        color: var(--md-sys-color-on-surface-variant);
+        transition: color 0.3s ease;
+      }
+
+      .footer {
+        border-top: 1px solid var(--md-sys-color-outline-variant);
+        color: var(--md-sys-color-on-surface-variant);
+        transition: border-color 0.3s ease, color 0.3s ease;
+      }
+      .footer a.footer-icon-link { /* Target specific links */
+        color: var(--md-sys-color-primary);
+        transition: color 0.2s ease-out;
+        display: inline-flex; 
+        align-items: center;
+        vertical-align: middle; /* Align the whole link including icon with surrounding text */
+      }
+      .footer a.footer-icon-link:hover {
+        color: var(--md-sys-color-tertiary);
+      }
+      .footer .footer-icon { /* For sizing both Material Symbols and SVGs */
+        font-size: 1.25rem; /* For Material Symbols */
+        width: 1.25rem;     /* For SVG width */
+        height: 1.25rem;    /* For SVG height */
+        display: inline-block; /* Ensure proper block behavior */
+        vertical-align: middle;
+      }
+      
+      .list-item-bg {
+        background-color: var(--md-sys-color-surface-variant);
+        transition: background-color 0.3s ease;
+      }
+      .list-item-bg:hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-surface-variant) 92%);
+      }
+      .list-item-text-color { 
+        color: var(--md-sys-color-on-surface-variant); 
+        transition: color 0.3s ease;
+      }
+      .list-item-remove-button {
+        background-color: var(--md-sys-color-error-container);
+        color: var(--md-sys-color-on-error-container);
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--md-sys-shape-corner-small);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+       .list-item-remove-button:hover:not(:disabled) {
+        background-color: color-mix(in srgb, var(--md-sys-color-error) 90%, var(--md-sys-color-error-container) 10%); 
+      }
+      
+       .subtle-text {
+        color: var(--md-sys-color-on-surface-variant);
+        transition: color 0.3s ease;
+       }
+       .warning-text {
+        color: var(--md-sys-color-tertiary); 
+        transition: color 0.3s ease;
+       }
+       .info-box {
+        background-color: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+        border: 1px solid var(--md-sys-color-outline-variant);
+        border-radius: var(--md-sys-shape-corner-medium);
+        padding: 1rem;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+       }
+        .info-box-error {
+        background-color: var(--md-sys-color-error-container);
+        color: var(--md-sys-color-on-error-container);
+        border: 1px solid var(--md-sys-color-error);
+       }
+
+      /* Main Content Layout */
+      .main-content-layout {
+        display: flex;
+        flex-direction: column; 
+      }
+      .form-column, .results-column {
+        width: 100%; 
+      }
+
+      @media (min-width: 992px) { /* Desktop/Landscape (lg) breakpoint */
+        .main-content-layout {
+          flex-direction: row;
+          align-items: flex-start; 
+          gap: 1.5rem; 
+        }
+        .form-column {
+          flex: 0 0 400px; 
+        }
+        .results-column {
+          flex: 1; 
+          min-width: 0; 
+        }
+      }
+
+      /* Header specific styles for theme toggle */
+      .app-header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Align title and button to top */
+        position: relative; /* For absolute positioning of toggle if needed */
+      }
+      .app-header-main {
+        flex-grow: 1; /* Allow title and subtitle to take space */
+      }
+      .theme-toggle-button {
+        margin-left: 1rem; /* Space from title content */
+        flex-shrink: 0; /* Prevent button from shrinking */
+      }
+      
+      /* Style for the prediction blocks */
+      .prediction-block {
+        padding: 1rem; /* p-4 equivalent */
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: var(--md-sys-shape-corner-medium);
+        transition: background-color 0.3s ease;
+      }
+
+      /* Material Symbols fill for specific icons if needed */
+      .material-symbols-outlined.filled {
+        font-variation-settings: 'FILL' 1;
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.0.1",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>

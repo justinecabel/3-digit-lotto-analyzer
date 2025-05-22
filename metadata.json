@@ -1,0 +1,6 @@
+{
+  "name": "Philippine 3 Digit Lotto Analyzer with CSV Upload",
+  "description": "Analyzes Philippine 3 Digit (Swertres) lotto results from manual input, CSV upload, or by loading bundled sample data. Identifies digit frequencies and generates speculative predictions, optionally enhanced by Gemini AI. This tool is for entertainment and informational purposes only and does not guarantee winnings.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
