@@ -269,7 +269,7 @@ const LottoForm: React.FC<LottoFormProps> = ({
             onClick={handleLoadSampleData}
             className="md-button md-button--tonal w-full"
         >
-            Load Sample Data
+            Load Recent Results
         </button>
         {sampleDataError && <p className="md-error-text mt-2 whitespace-pre-line" role="alert">{sampleDataError}</p>}
       </div>
