@@ -33,4 +33,7 @@ export const sampleCsvData = `
 3,3,4
 4,4,7
 2,6,1
+8,6,6
+2,2,0
+5,0,1
 `;
