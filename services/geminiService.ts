@@ -33,6 +33,7 @@ ${recentResultsString}
 1. Analyze these historical results. Consider digit frequencies (0-9 for each position), their positions (1st, 2nd, 3rd digit), common pairs across positions, triplets, sequences, sums, or any other observable patterns or trends leading up to the most recent draw.
 2. Based on your comprehensive analysis of the provided sequence, predict the next 3-digit combination (d1, d2, d3) that would follow the LATEST draw. Remember, digits can repeat (e.g., 1-1-2 is valid), and each digit must be strictly between 0 and 9.
 3. Provide a brief, simple explanation (max 2-3 sentences) for your prediction strategy.
+4. Use every algorithm for prediction.
 
 Return your response ONLY as a JSON object with the following structure:
 {
